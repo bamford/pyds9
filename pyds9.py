@@ -627,7 +627,7 @@ class DS9(object):
             #if sys.byteorder != 'big': arr.byteswap(True)
             return arr
 
-        def set_np2arr(self, arr, dtype=None):
+        def set_np2arr(self, arr, dtype=None, rgb=False):
             """
             :param arr: numpy array
             :param dtype: data type into which to convert array before sending
@@ -677,8 +677,16 @@ class DS9(object):
             bp = _np2bp(narr.dtype)
             buf = narr.tostring('C')
             blen = len(narr.data)
-            (w, h) = narr.shape
-            paramlist = 'array [xdim=%d,ydim=%d,bitpix=%d]' % (h, w, bp)
+            if len(narr.shape) == 2:
+                (w, h) = narr.shape
+                paramlist = 'array [xdim=%d,ydim=%d,bitpix=%d]' % (h, w, bp)
+            elif len(narr.shape) == 3:
+                (z, w, h) = self.filters.shape
+                paramlist = 'array [xdim=%d,ydim=%d,zdim=%d,bitpix=%d]' % (h, w, z, bp)
+                if rgb and z == 3:
+                    paramlist = 'rgb '+paramlist
+            else:
+                raise ValueError, 'only 2D and 3D arrays are supported'
             return self.set(paramlist, buf, blen+1)
 
     else:
