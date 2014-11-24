@@ -679,10 +679,10 @@ class DS9(object):
             blen = len(narr.data)
             if len(narr.shape) == 2:
                 (w, h) = narr.shape
-                paramlist = 'array [xdim=%d,ydim=%d,bitpix=%d]' % (h, w, bp)
+                paramlist = 'array [xdim=%d,ydim=%d,bitpix=%d,endian=little]' % (h, w, bp)
             elif len(narr.shape) == 3:
                 (z, w, h) = self.filters.shape
-                paramlist = 'array [xdim=%d,ydim=%d,zdim=%d,bitpix=%d]' % (h, w, z, bp)
+                paramlist = 'array [xdim=%d,ydim=%d,zdim=%d,bitpix=%d,endian=little]' % (h, w, z, bp)
                 if rgb and z == 3:
                     paramlist = 'rgb '+paramlist
             else:
