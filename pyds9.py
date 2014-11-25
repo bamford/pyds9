@@ -681,10 +681,10 @@ class DS9(object):
                 (w, h) = narr.shape
                 paramlist = 'array [xdim=%d,ydim=%d,bitpix=%d,endian=little]' % (h, w, bp)
             elif len(narr.shape) == 3:
-                (z, w, h) = self.filters.shape
+                (z, w, h) = narr.shape
                 paramlist = 'array [xdim=%d,ydim=%d,zdim=%d,bitpix=%d,endian=little]' % (h, w, z, bp)
                 if rgb and z == 3:
-                    paramlist = 'rgb '+paramlist
+                    paramlist = 'rgb'+paramlist
             else:
                 raise ValueError, 'only 2D and 3D arrays are supported'
             return self.set(paramlist, buf, blen+1)
