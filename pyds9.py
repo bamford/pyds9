@@ -74,14 +74,29 @@ if ds9Globals["numpy"]:
         """
         Convert numpy datatype to FITS bitpix
         """
-        if dtype == numpy.uint8:     return 8
-        elif dtype == numpy.int16:   return 16
-        elif dtype == numpy.int32:   return 32
-        elif dtype == numpy.int64:   return 64
-        elif dtype == numpy.float32: return -32
-        elif dtype == numpy.float64: return -64
-        elif dtype == numpy.uint16:  return -16
-        else: raise ValueError, 'unsupported dtype: %s' % dtype
+        if dtype.kind == 'u':
+            #unsigned ints
+            if dtype.itemsize == 1:
+                return 8
+            if dtype.itemsize == 2:
+                # this is not in the FITS standard?
+                return -16
+        elif dtype.kind == 'i':
+            #integers
+            if dtype.itemsize == 2:
+                return 16
+            elif dtype.itemsize == 4:
+                return 32
+            elif dtype.itemsize == 8:
+                return 64
+        elif dtype.kind == 'f':
+            #floating point
+            if dtype.itemsize == 4:
+                return -32
+            elif dtype.itemsize == 8:
+                return -64
+
+        raise ValueError, 'unsupported dtype: %s' % dtype
 
 # if xpans is not running, start it up
 def ds9_xpans():

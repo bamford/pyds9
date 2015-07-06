@@ -17,24 +17,16 @@ communicate with ds9. It supports communication with all of ds9's XPA access
 points. See http://hea-www.harvard.edu/saord/ds9/ref/xpa.html for more info
 on DS9's access points.
 
-Download the package from the pyds9 section of the ds9 web page:
+pyds9 is available from GitHub:
 
-	 http://hea-www.harvard.edu/saord/ds9/
+	 https://github.com/ericmandel/pyds9
 
 To install in the default directory::
-
-	# unpack the source tar file and change to the source pyds9 directory
-	> gunzip -c pyds9-1.x.tar.gz | tar xf -
-	> cd pyds9-1.x
 
 	# install in default system directory
 	> python setup.py install
 
 or to install in a user-specified directory::
-
-	# unpack the source tar file and change to the source pyds9 directory
-	> gunzip -c pyds9-1.x.tar.gz | tar xf -
-	> cd pyds9-1.x
 
 	# install in specified directory
 	> python setup.py install --prefix=<install-dir>
@@ -60,9 +52,9 @@ including an empty string).
 
 Contact saord@cfa.harvard.edu for help.
 
-**The Ds9 Class:**
+**The DS9 Class:**
 
-.. autoclass:: Ds9
+.. autoclass:: DS9
    :members: __init__, get, set, info, access, get_pyfits, set_pyfits, get_arr2np, set_np2arr
 
 **Auxiliary Routines:**
